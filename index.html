@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technoblade - Projeto de Banco de Dados Relacional</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <span class="tech">TechNo</span><span class="fix">Blade</span> Solutions
+        </div>
+        <nav>
+            <a href="#contexto">Contexto</a>
+            <a href="#modelagem">Modelagem & FN</a>
+            <a href="#sql">Consultas SQL</a>
+            <a href="#cloud">Cloud & Dump</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sistema de Gestão para Assistência Técnica</h1>
+            <p>Projeto de Modelagem, Normalização e Implementação de SGBD Relacional (PostgreSQL/MySQL).</p>
+            <div class="badge-container">
+                <span class="badge">SGBD Relacional</span>
+                <span class="badge">4FN Aplicada</span>
+                <span class="badge">Aiven Cloud</span>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+
+        
+        <section id="contexto" class="card">
+            <h2>1. Contextualização & Solução</h2>
+            <div class="grid-2">
+                <div class="problem-box">
+                    <h3> Problemas Enfrentados (Antes)</h3>
+                    <ul>
+                        <li>Gestão baseada em planilhas descentralizadas.</li>
+                        <li>Redundância e duplicidade de dados de clientes.</li>
+                        <li>Falta de rastreabilidade de peças por Ordem de Serviço (OS).</li>
+                        <li>Impossibilidade de calcular faturamento em tempo real.</li>
+                    </ul>
+                </div>
+                <div class="solution-box">
+                    <h3> Proposta de Solução (Com SGBD)</h3>
+                    <ul>
+                        <li>Centralização em SGBD Relacional robusto.</li>
+                        <li>Integridade Referencial com Chaves Primárias e Estrangeiras.</li>
+                        <li>Normalização até a 4ª Forma Normal (4FN).</li>
+                        <li>Consultas analíticas ágeis em SQL.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="modelagem" class="card">
+            <h2>2. Modelagem Lógica & Normalização</h2>
+            <p>O modelo conta com 5 tabelas principais, tratando relacionamentos 1:N e N:M com tabela de associação (<code>os_pecas</code>).</p>
+            
+            <div class="fn-grid">
+                <div class="fn-card">
+                    <h4>1FN</h4>
+                    <p>Atributos atômicos e eliminação de grupos repetitivos.</p>
+                </div>
+                <div class="fn-card">
+                    <h4>2FN</h4>
+                    <p>Dependência funcional total da chave primária composta (<code>os_pecas</code>).</p>
+                </div>
+                <div class="fn-card">
+                    <h4>3FN</h4>
+                    <p>Eliminação de dependências transitivas (totais calculados por JOIN).</p>
+                </div>
+                <div class="fn-card">
+                    <h4>4FN</h4>
+                    <p>Remoção de dependências multivaloradas independentes.</p>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="sql" class="card">
+            <h2>3. Consultas SQL Demonstrativas</h2>
+            <p>Selecione uma das consultas abaixo para visualizar a instrução SQL correspondente e o resultado retornado pelo banco:</p>
+
+            <div class="sql-browser">
+                <div class="sql-selector">
+                    <label for="querySelect">Escolha a Consulta:</label>
+                    <select id="querySelect" onchange="loadQuery()">
+                        <option value="1">1. Listar OSs com Cliente e Técnico (INNER JOIN)</option>
+                        <option value="2">2. Filtrar Clientes por Nome (LIKE)</option>
+                        <option value="3">3. OSs Abertas na 1ª Quinzena (BETWEEN)</option>
+                        <option value="4">4. Total de Mão de Obra por Status (SUM + GROUP BY)</option>
+                        <option value="5">5. Peças com Estoque Crítico (WHERE + ORDER BY)</option>
+                        <option value="6">6. Valor Total Por OS (JOIN + SUM + GROUP BY)</option>
+                    </select>
+                </div>
+
+                <div class="sql-display">
+                    <h3>Instrução SQL Executada:</h3>
+                    <pre><code id="sqlCode">-- Selecione uma consulta acima --</code></pre>
+                </div>
+
+                <div class="sql-result">
+                    <h3>Resultado Retornado:</h3>
+                    <div id="tableContainer"></div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="cloud" class="card">
+            <h2>4. Hosting & Dump do Banco</h2>
+            <div class="grid-2">
+                <div>
+                    <h3> Cloud Hosting (Aiven)</h3>
+                    <ol class="step-list">
+                        <li>Criação de instância PostgreSQL no plano Starter da Aiven.</li>
+                        <li>Configuração de regras de acesso via IP/SSL.</li>
+                        <li>Conexão de clientes via URI remota segura.</li>
+                    </ol>
+                </div>
+                <div>
+                    <h3> Backup & Dump</h3>
+                    <p>Comando para exportação do banco completo (estrutura + dados):</p>
+                    <pre><code>pg_dump -h host-aiven.aivencloud.com -p 12345 -U avnadmin -d techfix_db > techfix_dump.sql</code></pre>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Technoblade Solutions &copy; 2026 - Projeto de Banco de Dados Relacional | Entregável Acadêmico</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
