@@ -1,7 +1,7 @@
 # Projeto Integrador de Banco de Dados - TechFix (technoblade_db)
 
 ##  Links Principais
-- **SGBD Utilizado:** MySQL / PostgreSQL
+- **SGBD Utilizado:** MySQL
 - **Hosting:** Aiven Cloud
 
 ##  Sobre o Projeto
